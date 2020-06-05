@@ -25,15 +25,22 @@ CREATE TABLE career (
 CREATE TABLE rol (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name_rl TEXT NOT NULL,
-  description_rl TEXT
+  descript_rl TEXT
+);
+
+CREATE TABLE id_type (
+  id INTEGER PRIMARY KEY,
+  descript_id_t TEXT NOT NULL
 );
 
 CREATE TABLE user (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY,
+  id_type INTEGER,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   rol_id INTEGER NOT NULL,
-  FOREIGN KEY (rol_id) REFERENCES rol (id)
+  FOREIGN KEY (rol_id) REFERENCES rol (id),
+  FOREIGN KEY (id_type) REFERENCES id_type (id)
 );
 
 CREATE TABLE room_type (
