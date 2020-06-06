@@ -9,8 +9,14 @@ from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
+
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
+    rols = get_db().execute(
+        'SELECT id, name_rl'
+        ' FROM rol'
+    ).fetchall()
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -45,7 +51,7 @@ def register():
 
         flash(error)
 
-    return render_template('auth/register.html')
+    return render_template('auth/register.html', rols=rols)
 
 @bp.route('/login', methods=('GET', 'POST'))
 def login():

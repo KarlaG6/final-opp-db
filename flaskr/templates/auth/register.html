@@ -18,11 +18,9 @@
     <label for="id">Numero de indentificacion</label>
     <input type="number" name="idcard" id="idcard" min="11111111">
     <select name="rol" id="rol">
-        <option value="0">Estudiante</option>
-        <option value="1">Profesor</option>
-        <option value="2">Funcionario</option>
-        <option value="3">Tutor</option>
-        <option value="4">Otro</option>
+        {% for rol in rols %}
+            <option value="{{ rol['id'] }}">{{ rol['name_rl'].capitalize() }}</option>
+        {% endfor %}  
     </select>
     <input type="submit" value="Registrarse">
   </form>

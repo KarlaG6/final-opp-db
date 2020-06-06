@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS career;
 DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS rol;
+DROP TABLE IF EXISTS id_type;
 DROP TABLE IF EXISTS room_type;
 DROP TABLE IF EXISTS room;
 DROP TABLE IF EXISTS subject_;
@@ -74,3 +75,11 @@ CREATE TABLE functionary_type (
   id INTEGER PRIMARY KEY,
   name_f_t TEXT NOT NULL
 );
+
+INSERT INTO career (name_c, faculty) VALUES ('sistemas', 'ingenieria');
+INSERT INTO career (name_c, faculty) VALUES ('industrial', 'ingenieria');
+INSERT INTO rol (name_rl, descript_rl) VALUES ('estudiante', 'observa y modifica');
+INSERT INTO rol (name_rl, descript_rl) VALUES ('docente', 'observa y modifica');
+INSERT INTO rol (name_rl, descript_rl) VALUES ('funcionario', 'observa y modifica');
+INSERT INTO rol (name_rl, descript_rl) VALUES ('tutor', 'observa y modifica');
+INSERT INTO rol (name_rl, descript_rl) VALUES ('otro', 'solo observa');

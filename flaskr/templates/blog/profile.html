@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}My profile{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  {% if g.user %}
+    <p>Nombre: {{ g.user['username'] }}</p>
+    
+  {% else %}
+    <p>No te has logeado</p>
+  {% endif %}
+{% endblock %}
