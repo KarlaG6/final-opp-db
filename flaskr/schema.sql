@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS room_type;
 DROP TABLE IF EXISTS room;
 DROP TABLE IF EXISTS subject_;
 DROP TABLE IF EXISTS equipment;
+DROP TABLE IF EXISTS functionary_type;
 
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -35,12 +36,12 @@ CREATE TABLE id_type (
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY,
-  id_type INTEGER,
+  idtype INTEGER,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
   rol_id INTEGER NOT NULL,
   FOREIGN KEY (rol_id) REFERENCES rol (id),
-  FOREIGN KEY (id_type) REFERENCES id_type (id)
+  FOREIGN KEY (idtype) REFERENCES id_type (id)
 );
 
 CREATE TABLE room_type (

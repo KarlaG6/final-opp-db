@@ -16,6 +16,7 @@ def register():
         password = request.form['password']
         idcard   = request.form['idcard'  ]
         idtype   = request.form['idtype'  ]
+        rol      = request.form['rol'     ]
         db = get_db()
         error = None
 
@@ -27,6 +28,8 @@ def register():
             error = 'Numero de identificación requerido.'
         elif not idtype:
             error = 'Tipo de identificación requerido.'
+        elif not rol:
+            error = 'Tipo de usuario requerido.'
         elif db.execute(
             'SELECT id FROM user WHERE id = ?', (idcard,)
         ).fetchone() is not None:
@@ -34,8 +37,8 @@ def register():
 
         if error is None:
             db.execute(
-                'INSERT INTO user (id, username, password) VALUES (?, ?, ?)',
-                (idcard, username, generate_password_hash(password))
+                'INSERT INTO user (id, idtype, username, password, rol_id) VALUES (?, ?, ?, ?, ?)',
+                (idcard, idtype, username, generate_password_hash(password), rol)
             )
             db.commit()
             return redirect(url_for('auth.login'))
