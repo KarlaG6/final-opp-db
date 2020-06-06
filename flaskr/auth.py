@@ -9,8 +9,8 @@ from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
-@bp.route('/registrarse', methods=('GET', 'POST'))
-def registrarse():
+@bp.route('/register', methods=('GET', 'POST'))
+def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -30,7 +30,7 @@ def registrarse():
         elif db.execute(
             'SELECT id FROM user WHERE id = ?', (idcard,)
         ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
+            error = 'El usuario {} ya esta registrado.'.format(username)
 
         if error is None:
             db.execute(

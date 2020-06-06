@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Registrate{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="username">Usuario</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <select name="idtype" id="idtype">
+        <option value="0">Cedula de ciudadania</option>
+        <option value="1">Tarjeta de identidad</option>
+        <option value="2">Cedula de extranjeria</option>
+    </select>
+    <label for="id">Numero de indentificacion</label>
+    <input type="number" name="idcard" id="idcard" min="11111111">
+    <input type="submit" value="Registrarse">
+  </form>
+{% endblock %}
