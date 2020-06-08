@@ -62,6 +62,8 @@ CREATE TABLE subject_ (
   name_s TEXT NOT NULL,
   professor_id INTEGER,
   room INTEGER,
+  date_s WEEKDAY,
+  time_s TIME,
   FOREIGN KEY (professor_id) REFERENCES user (id),
   FOREIGN KEY (room) REFERENCES room (id)
 );

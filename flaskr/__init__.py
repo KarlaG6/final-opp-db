@@ -39,14 +39,8 @@ def create_app(test_config=None):
     app.register_blueprint(blog.bp)
     app.add_url_rule('/', endpoint='index')
 
-    from . import schedule
-    app.register_blueprint(schedule.bp)
-    app.add_url_rule('/schedule', endpoint='schedule')
-
-    from . import profile
-    app.register_blueprint(profile.bp)
-    app.add_url_rule('/profile', endpoint='profile')
+    from . import userspace
+    app.register_blueprint(userspace.bp)
+    app.add_url_rule('/userspace', endpoint='userspace')
 
     return app
-
-    

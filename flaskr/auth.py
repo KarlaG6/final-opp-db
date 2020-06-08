@@ -13,8 +13,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
     rols = get_db().execute(
-        'SELECT id, name_rl'
-        ' FROM rol'
+        'SELECT id, name_rl FROM rol'
     ).fetchall()
 
     if request.method == 'POST':
