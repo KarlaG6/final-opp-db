@@ -48,14 +48,42 @@ class Schedule(Subject):
     def rmSubject(self, subject):
         self.subjects.remove(subject.nameS)
 
-@bp.route('/schedule')
+    def schedEmpty():
+         False if len(self.subjects) == 0 else True
+
+
+@bp.route('/schedule', methods=('GET', 'POST'))
 @login_required
 def schedule():
     db = get_db()
     subjects = db.execute(
         'SELECT id, name_s, professor_id FROM subject_'
     ).fetchall()
-    mySchedule = Schedule()
-    
-    db.commit()
-    return render_template('userspace/schedule.html', subjects=subjects, schedule=mySchedule)
+    user = g.user['id']
+    if request.method == 'POST':
+        subj = request.form['subject']
+        error = None
+        schedules = db.execute(
+            'SELECT s.name_s FROM subject_ s, schedule sch WHERE s.id = sch.id_subj AND sch.id_user = ?', 
+            (user,)
+        ).fetchall()
+        if not subj:
+            error = 'Seleccione una asignatura.'
+        elif db.execute(
+            'SELECT id_subj FROM schedule WHERE id_subj = ? AND id_user = ?', 
+            (subj, user)
+        ).fetchone() is not None:
+            error = 'La asignatura {} ya esta registrada.'.format(subj)
+            print(schedules)
+            mySchedule = Schedule()
+            for  sch in schedules:
+                mySchedule.addSubject(sch)
+        if error is None:
+            db.execute(
+                'INSERT INTO schedule (id_subj, id_user) VALUES(?, ?)',
+                (subj, user)
+            )
+            db.commit()
+        flash(error)
+        
+    return render_template('userspace/schedule.html', subjects=subjects, schedules=schedules)

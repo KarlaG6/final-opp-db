@@ -5,10 +5,21 @@
 {% endblock %}
 
 {% block content %}
-  <!-- {% if terminaesto %}
-    
-  {% else %}
-    
-  {% endif %} -->
-  <p>Hi</p>
+  <form method="post">
+    <label for="Agregar asignatura">Agregar asignatura</label>
+    <select name="subject" id="subject">
+      {% for subject in subjects %}
+          <option value="{{ subject['id'] }}">{{ subject['name_s'].capitalize() }}</option>
+      {% endfor %}  
+  </select>
+  <input type="submit" value="Agregar">
+  </form>
+  <ul>
+    {% for sch in schedules %}
+      <li>{{ sch['name_s']}}</li>
+      
+    {% endfor %}
+  </ul>
+  
+  {{ schedules }}
 {% endblock %}

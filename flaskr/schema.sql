@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS room;
 DROP TABLE IF EXISTS subject_;
 DROP TABLE IF EXISTS equipment;
 DROP TABLE IF EXISTS functionary_type;
+DROP TABLE IF EXISTS schedule;
 
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -58,7 +59,7 @@ CREATE TABLE room (
 );
 
 CREATE TABLE subject_ (
-  id INTEGER PRIMARY KEY,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   name_s TEXT NOT NULL,
   professor_id INTEGER,
   room INTEGER,
@@ -66,6 +67,13 @@ CREATE TABLE subject_ (
   time_s TIME,
   FOREIGN KEY (professor_id) REFERENCES user (id),
   FOREIGN KEY (room) REFERENCES room (id)
+);
+
+CREATE TABLE schedule (
+  id_subj INTEGER ,
+  id_user INTEGER ,
+  added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY( id_subj, id_user)
 );
 
 CREATE TABLE equipment (
@@ -85,3 +93,6 @@ INSERT INTO rol (name_rl, descript_rl) VALUES ('docente', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('funcionario', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('tutor', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('otro', 'solo observa');
+INSERT INTO subject_ ( name_s, professor_id) VALUES ('Algebra lineal', 'Panchito mortero');
+INSERT INTO subject_ ( name_s, professor_id) VALUES ('POO', 'Patty Mendoza');
+INSERT INTO subject_ ( name_s, professor_id) VALUES ('Gestion ambiental', 'Jose Jinete');

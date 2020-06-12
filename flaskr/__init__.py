@@ -41,6 +41,5 @@ def create_app(test_config=None):
 
     from . import userspace
     app.register_blueprint(userspace.bp)
-    app.add_url_rule('/userspace', endpoint='userspace')
 
     return app

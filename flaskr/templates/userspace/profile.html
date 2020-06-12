@@ -9,6 +9,7 @@
     <p>Nombre: {{ g.user['username'] }}</p>
     <p>Mi horario</p>
     <a href="{{ url_for('userspace.schedule') }}">Horario</a>
+    <p>Rol: {{ g.user['rol'] }}</p>
   {% else %}
     <p>No te has logeado</p>
   {% endif %}
