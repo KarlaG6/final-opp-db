@@ -10,7 +10,11 @@ bp = Blueprint('userspace', __name__)
 
 @bp.route('/profile')
 def profile():
-    return render_template('userspace/profile.html')
+    rolid = g.user['rol_id']
+    rol = get_db().execute(
+        'SELECT name_rl FROM rol WHERE id = ?',(rolid,)
+    ).fetchone()
+    return render_template('userspace/profile.html', rol=rol)
 
 class Subject:
     def __init__(self, id, nameS, type):
@@ -60,30 +64,38 @@ def schedule():
         'SELECT id, name_s, professor_id FROM subject_'
     ).fetchall()
     user = g.user['id']
+    
+    print( user)
     if request.method == 'POST':
         subj = request.form['subject']
         error = None
-        schedules = db.execute(
-            'SELECT s.name_s FROM subject_ s, schedule sch WHERE s.id = sch.id_subj AND sch.id_user = ?', 
-            (user,)
-        ).fetchall()
+        
         if not subj:
             error = 'Seleccione una asignatura.'
         elif db.execute(
             'SELECT id_subj FROM schedule WHERE id_subj = ? AND id_user = ?', 
             (subj, user)
         ).fetchone() is not None:
-            error = 'La asignatura {} ya esta registrada.'.format(subj)
-            print(schedules)
-            mySchedule = Schedule()
-            for  sch in schedules:
-                mySchedule.addSubject(sch)
+            subject = db.execute(
+                'SELECT name_s FROM subject_ s WHERE id = ?', 
+                (subj,)
+            ).fetchone()
+            error = 'La asignatura {} ya esta registrada.'.format(subject[0])
+            # print(schedules)
+            # mySchedule = Schedule()
+            # for sch in schedules:
+            #     mySchedule.addSubject(sch)
         if error is None:
             db.execute(
                 'INSERT INTO schedule (id_subj, id_user) VALUES(?, ?)',
                 (subj, user)
             )
             db.commit()
-        flash(error)
+        else:
+            flash(error)
+    schedules = db.execute(
+        'SELECT s.name_s FROM subject_ s, schedule sch WHERE s.id = sch.id_subj AND sch.id_user = ?', 
+        (user,)
+    ).fetchall()
         
     return render_template('userspace/schedule.html', subjects=subjects, schedules=schedules)
