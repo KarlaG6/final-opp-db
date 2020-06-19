@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS subject_;
 DROP TABLE IF EXISTS equipment;
 DROP TABLE IF EXISTS functionary_type;
 DROP TABLE IF EXISTS schedule;
+DROP TABLE IF EXISTS group_;
+DROP TABLE IF EXISTS prof_subject;
 
 CREATE TABLE post (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -60,18 +62,28 @@ CREATE TABLE room (
 
 CREATE TABLE subject_ (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name_s TEXT NOT NULL,
-  professor_id INTEGER,
+  name_s TEXT NOT NULL
+);
+
+CREATE TABLE group_ (
+  id INTEGER PRIMARY KEY ,
+  name_g TEXT NOT NULL,
+  id_prof INTEGER,
   room INTEGER,
   date_s WEEKDAY,
   time_s TIME,
-  FOREIGN KEY (professor_id) REFERENCES user (id),
-  FOREIGN KEY (room) REFERENCES room (id)
+  jornada TEXT,
+  id_subj INTEGER NOT NULL,
+
+  FOREIGN KEY (id) REFERENCES subject_ (id),
+  FOREIGN KEY (id_prof) REFERENCES user (id),
+  FOREIGN KEY (room) REFERENCES room (id),
+  FOREIGN KEY (id_subj) REFERENCES subject_ (id)
 );
 
 CREATE TABLE schedule (
-  id_subj INTEGER ,
-  id_user INTEGER ,
+  id_subj INTEGER,
+  id_user INTEGER,
   added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY( id_subj, id_user)
 );
@@ -86,6 +98,13 @@ CREATE TABLE functionary_type (
   name_f_t TEXT NOT NULL
 );
 
+CREATE TABLE prof_subject (
+  id_prof INTEGER NOT NULL,
+  id_subj INTEGER NOT NULL,
+
+  PRIMARY KEY ( id_prof, id_subj)
+);
+
 INSERT INTO career (name_c, faculty) VALUES ('sistemas', 'ingenieria');
 INSERT INTO career (name_c, faculty) VALUES ('industrial', 'ingenieria');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('estudiante', 'observa y modifica');
@@ -93,6 +112,6 @@ INSERT INTO rol (name_rl, descript_rl) VALUES ('docente', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('funcionario', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('tutor', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('otro', 'solo observa');
-INSERT INTO subject_ ( name_s, professor_id) VALUES ('Algebra lineal', 'Panchito mortero');
-INSERT INTO subject_ ( name_s, professor_id) VALUES ('POO', 'Patty Mendoza');
-INSERT INTO subject_ ( name_s, professor_id) VALUES ('Gestion ambiental', 'Jose Jinete');
+INSERT INTO subject_ ( name_s) VALUES ('Algebra lineal');
+INSERT INTO subject_ ( name_s) VALUES ('POO');
+INSERT INTO subject_ ( name_s) VALUES ('Gestion ambiental');

@@ -47,9 +47,7 @@ def register():
             )
             db.commit()
             return redirect(url_for('auth.login'))
-
         flash(error)
-
     return render_template('auth/register.html', rols=rols)
 
 @bp.route('/login', methods=('GET', 'POST'))
@@ -92,6 +90,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
+    
     return redirect(url_for('index'))
 
 # LOGIN REQUERIDO
