@@ -9,13 +9,9 @@ import abc
 
 bp = Blueprint('userspace', __name__)
 
-@bp.route('/profile')
-def profile():
-    rolid = g.user['rol_id']
-    rol = get_db().execute(
-        'SELECT name_rl FROM rol WHERE id = ?',(rolid,)
-    ).fetchone()
-    return render_template('userspace/profile.html', rol=rol)
+
+
+ 
 
 class Subject:
     # falta el , id, nameS, type en init
@@ -123,22 +119,23 @@ class User(metaclass=abc.ABCMeta):
         pass
 
     def setId(self, id):
-        self.id = id
+        self.id = g.user['id']
 
     def getId(self):
         return self.id
 
     def setName(self, name):
-        self.name = name
+        self.name = g.user['username']
 
     def getName(self):
         return self.name
 
-    def setRol(self, rol):
-        self.rol = rol
+    def setRol(self):
+        self.rol = g.user['rol_id']
 
     def getRol(self):
         return self.rol
+
         
 
 class Professor( User):
@@ -146,7 +143,7 @@ class Professor( User):
         User.__init__(self)
 
     def registrarse(self):
-        return 'Profesor'
+        return 'Soy metodo profesor'
 
 class Student( User):
     def __init__(self):
@@ -154,6 +151,42 @@ class Student( User):
 
     def registrarse(self):
         return 'Estudiante'
+
+class Funcionary( User):
+    def __init__(self):
+        User.__init__(self)
+
+    def registrarse(self):
+        return 'Funcionario'
+
+class Tutor( User):
+    def __init__(self):
+        User.__init__(self)
+
+    def registrarse(self):
+        return 'Tutor'
+
+class Other( User):
+    def __init__(self):
+        User.__init__(self)
+
+    def registrarse(self):
+        return 'Other'
+
+def rolAssignedClass():
+    x = g.user['rol_id']
+    user = None
+    if x == 1:
+        user = Student()
+    elif x == 2:
+        user = Professor()
+    elif x == 3:
+        user = Funcionary()
+    elif x == 4:
+        user = Tutor()
+    else:
+        user = Other()
+    return user
 
 def get_subject(id):
     db = get_db()
@@ -166,7 +199,7 @@ def get_subject(id):
 
 def newSubject():
         db = get_db()
-        user = g.user['id']
+        myUser = g.user['id']
         
         if request.method == 'POST':
             # subj = request.form['subject']
@@ -195,6 +228,18 @@ def newSubject():
 
 
 mySchedule = Schedule()
+
+@bp.route('/profile')
+def profile():
+    rolid = g.user['rol_id']
+    rol = get_db().execute(
+        'SELECT name_rl FROM rol WHERE id = ?',(rolid,)
+    ).fetchone()
+    user = rolAssignedClass()
+    # print( user.registrarse())
+    # print( type(user).__name__)
+    return render_template('userspace/profile.html', rol=rol)
+
 
 @bp.route('/schedule', methods=('GET', 'POST'))
 @login_required
