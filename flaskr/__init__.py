@@ -1,6 +1,6 @@
 import os
-
-from flask import Flask
+import time
+from flask import Flask, g, jsonify, abort, request
 from flask_babelex import Babel
 # from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 
@@ -30,8 +30,16 @@ def create_app(test_config=None):
     # a simple page that says hello
     @app.route('/hello')
     def hello():
-        return 'Hello, World!'
+        return {'name': 'Hello, Karla!'}
 
+    @app.route('/time')
+    def get_current_time():
+        return {'time': time.time()}
+
+    @app.route('/test')
+    def test():
+        return {'a': 39} 
+    
     from . import db
     db.init_app(app)
 

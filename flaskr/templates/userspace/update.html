@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-  {% if g.user['rol_id'] is 1 %}
+  {% if g.user['rol_id'] == 1 %}
     <form method="post">
       <label for="name_s">Name</label>
       <input name="name_s" id="name_s" value="{{ request.form['name_s'] }}" required>

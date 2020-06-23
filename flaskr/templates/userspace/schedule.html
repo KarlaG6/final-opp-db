@@ -16,12 +16,7 @@
       {% for subject in subjects %}
           <option value="{{ subject['id'] }}">{{ subject['name_s'].capitalize() }}</option>
       {% endfor %}  
-    </select>
-    <select name="group" id="group">
-      {% for group in groups %}
-          <option value="{{ group['id'] }}">{{ group['name_g'].capitalize() }}</option>
-      {% endfor %}  
-    </select>
+  </select>
   <input type="submit" value="Agregar">
   </form>
   <ul>
