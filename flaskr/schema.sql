@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS subject_;
 DROP TABLE IF EXISTS equipment;
 DROP TABLE IF EXISTS functionary_type;
 DROP TABLE IF EXISTS schedule;
-DROP TABLE IF EXISTS group_;
+DROP TABLE IF EXISTS group_subject;
 DROP TABLE IF EXISTS prof_subject;
 
 CREATE TABLE post (
@@ -65,20 +65,20 @@ CREATE TABLE subject_ (
   name_s TEXT NOT NULL
 );
 
-CREATE TABLE group_ (
-  id INTEGER PRIMARY KEY ,
+CREATE TABLE group_subject (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   name_g TEXT NOT NULL,
+  id_subj INTEGER NOT NULL,
   id_prof INTEGER,
   room INTEGER,
   date_s WEEKDAY,
   time_s TIME,
   jornada TEXT,
-  id_subj INTEGER NOT NULL,
 
   FOREIGN KEY (id) REFERENCES subject_ (id),
+  FOREIGN KEY (id_subj) REFERENCES subject_ (id),
   FOREIGN KEY (id_prof) REFERENCES user (id),
-  FOREIGN KEY (room) REFERENCES room (id),
-  FOREIGN KEY (id_subj) REFERENCES subject_ (id)
+  FOREIGN KEY (room) REFERENCES room (id)
 );
 
 CREATE TABLE schedule (
@@ -112,6 +112,9 @@ INSERT INTO rol (name_rl, descript_rl) VALUES ('docente', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('funcionario', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('tutor', 'observa y modifica');
 INSERT INTO rol (name_rl, descript_rl) VALUES ('otro', 'solo observa');
-INSERT INTO subject_ ( name_s) VALUES ('Algebra lineal');
-INSERT INTO subject_ ( name_s) VALUES ('POO');
-INSERT INTO subject_ ( name_s) VALUES ('Gestion ambiental');
+INSERT INTO subject_( name_s) VALUES ('Algebra lineal');
+INSERT INTO subject_( name_s) VALUES ('POO');
+INSERT INTO subject_( name_s) VALUES ('Gestion ambiental');
+INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo A', 1);
+INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo B', 1);
+INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo A', 2);

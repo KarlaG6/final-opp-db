@@ -1,6 +1,8 @@
 import os
 
 from flask import Flask
+from flask_babelex import Babel
+# from flask_user import current_user, login_required, roles_required, UserManager, UserMixin
 
 
 def create_app(test_config=None):
@@ -10,6 +12,7 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
