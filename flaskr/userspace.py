@@ -829,6 +829,13 @@ def schedule():
     # return { 'subjects': mySchedule.getSbjcts(), 'schedules': mySchedule.getSchdls(), 'groups': initGroups()}
     ##corregirlo, es una fachada, 0 programatico##
 
+
+# @bp.route('/update_details')
+# def update_details():
+    
+    
+#     return render_template('userspace/update_details.html')
+
 # Eliminar un grupo de una asignatura que corresponde a un profesor
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required

@@ -6,6 +6,7 @@
     <a class="action" href="{{ url_for('blog.create') }}">New</a>
     <a class="action" href="{{ url_for('userspace.profile') }}">Profile</a>
     <a class="action" href="{{ url_for('userspace.addSubject') }}">Ingresar asignatura</a>
+    <a class="action" href="{{ url_for('userspace.schedule') }}">Vover</a>
   {% endif %}
 {% endblock %}
 
@@ -59,11 +60,22 @@
   </form>
   </div>
 
-  <ul>
-    {% for sch in schedules %}
-      <li>{{ sch['name_s']}}</li>
-    {% endfor %}
-  </ul>
+  <div class="wrapper">
+      <div class="cols">
+          <div class="col">
+            <ul>
+                {% for sch in schedules %}
+                <div class="container">
+                    <div class="front" style="">
+                        <p><li>{{ sch['name_s']}}</li></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+          </div>
+      </div>
+  </div>
+  
   
 {% endblock %}
 
