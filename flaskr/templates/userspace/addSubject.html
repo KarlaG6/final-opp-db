@@ -31,9 +31,12 @@
     </div>
   </form> -->
   <div id="addSubjForms">
-    <form method="post" id="asignatura">
+    <!-- <form method="post" id="asignatura">
       <label for="Agregar asignatura">Agregar asignatura</label>
       <select name="subject" id="subject">
+        <option value="none" selected disabled hidden> 
+            {{subj}} 
+        </option> 
           {% for subject in subjects %}
               <option value="{{ subject['id'] }}">{{ subject['name_s'].capitalize() }}</option>
           {% endfor %}  
@@ -41,8 +44,19 @@
 
   <input type="submit" name="subject" value="Mostrar Grupos" >  
 
-  </form>
+  </form> -->
 
+  <form method="post" id="group">
+      <label for="Eliga un grupo">Elegir grupo</label>
+      <select name="group" id="group">
+          {% for group in groups %}
+              <option value="{{ group['id'] }}">{{ group['name_g'].capitalize() }}</option>
+          {% endfor %}  
+      </select>
+
+      <input type="submit" name="group" value="Agregar" >
+
+  </form>
   </div>
 
   <ul>

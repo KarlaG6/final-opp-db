@@ -6,6 +6,7 @@ from werkzeug.exceptions import abort
 from flaskr.auth import login_required
 from flaskr.db import get_db
 
+# En caso de React adicionar el parametro url_prefix="blog" 
 bp = Blueprint('blog', __name__)
 
 @bp.route('/')
@@ -42,6 +43,7 @@ def create():
             return redirect(url_for('blog.index'))
 
     return render_template('blog/create.html')
+    # return {'create': 'tumama'}
 
 def get_post(id, check_author=True):
     post = get_db().execute(

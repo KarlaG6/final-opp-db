@@ -84,8 +84,10 @@ CREATE TABLE group_subject (
 CREATE TABLE schedule (
   id_subj INTEGER,
   id_user INTEGER,
+  id_group INTEGER,
   added_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY( id_subj, id_user)
+  PRIMARY KEY( id_subj, id_user),
+  FOREIGN KEY (id_group) REFERENCES group_subject(id)
 );
 
 CREATE TABLE equipment (
@@ -118,3 +120,5 @@ INSERT INTO subject_( name_s) VALUES ('Gestion ambiental');
 INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo A', 1);
 INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo B', 1);
 INSERT INTO group_subject ( name_g, id_subj) VALUES ( 'Grupo A', 2);
+-- INSERT INTO ( ) VALUES ();
+-- INSERT INTO ( ) VALUES ();
